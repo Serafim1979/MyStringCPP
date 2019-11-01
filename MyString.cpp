@@ -6,15 +6,38 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using std::cerr;
+
+/////////////////////////////////////////
+std::istream& operator >> (std::istream& is, String& str)
+{
+	char buf[2048];
+	is.getline(buf, sizeof buf);
+	str = buf;
+	return is;
+}
+/////////////////////////////////////////
+std::ostream& operator << (std::ostream& os, const String& str)
+{
+	return os << str.s;
+}
 /////////////////////////////////////////
 const char& String::operator [](int ind)const
 {
-
+	if (0 <= ind && ind < n)
+		return s[ind];
+	cerr << "Index out of range" << endl;
+	return s[n];
 }
 /////////////////////////////////////////
 char& String::operator [](int ind)
 {
-
+	if (0 <= ind && ind < n)
+		return s[ind];
+	cerr << "Index out of range" << endl;
+	static char dummy;
+	dummy = '\0';
+	return dummy;
 }
 /////////////////////////////////////////
 bool operator > (const String& lhs, const String& rhs)
